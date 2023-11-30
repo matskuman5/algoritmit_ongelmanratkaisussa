@@ -2,7 +2,9 @@ intsToString :: [Int] -> String
 intsToString = unwords . map show
 
 collatzSequence :: Int -> [Int]
-collatzSequence i = i : collatzSequence (collatz i)
+collatzSequence i
+    | i /= 1 = i : collatzSequence (collatz i)
+    | otherwise = [1]
 
 collatz :: Int -> Int
 collatz i
@@ -12,5 +14,5 @@ collatz i
 main :: IO ()
 main = do
     i <- readLn
-    putStrLn (intsToString (takeWhile (/= 1) (collatzSequence i) ++ [1]))
+    putStrLn (intsToString (collatzSequence i))
     return ()
